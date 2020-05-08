@@ -1,6 +1,6 @@
 {
   "name": "@midwayjs/component-postinstall",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "bin": {
     "mcp": "mcp.js"
   },
