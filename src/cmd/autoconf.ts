@@ -21,7 +21,7 @@ class AutoPluginConfiguration {
 
     const midwayIntegration = this.getPkgJson(this.baseDir)['midway-integration'];
     if (midwayIntegration && midwayIntegration.tsCodeRoot) {
-      sourceDir.unshift(join(this.baseDir, midwayIntegration));
+      sourceDir.unshift(join(this.baseDir, midwayIntegration.tsCodeRoot));
     }
 
     const configurationPostion = sourceDir.find(dirName => {
@@ -92,7 +92,11 @@ export class ContainerConfiguration {}`;
   }
 
   addImports(code) {
-    return code.replace(/@Configuration\(\s*/, `@Configuration({
+    const emptyConfiguration = /@Configuration\(\s*\)/g;
+    if (emptyConfiguration.test(code)) {
+      code = code.replace(emptyConfiguration, '@Configuration({})');
+    }
+    return code.replace(/@Configuration\(\{\s*/, `@Configuration({
     imports: [],`)
   }
 

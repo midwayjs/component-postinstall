@@ -1,0 +1,6 @@
+{
+  "name": "test-mode-name",
+  "midway-integration": {
+    "tsCodeRoot": "src/apis"
+  }
+}

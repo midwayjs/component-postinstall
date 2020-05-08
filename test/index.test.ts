@@ -26,7 +26,7 @@ describe('/test/index.test.ts', () => {
     mm.restore();
   })
 
-  it.only('test autoconf when import not exist', async () => {
+  it('test autoconf when import not exist', async () => {
     // mm(process.env, 'npm_rootpath', join(__dirname, './fixtures/autoPluginConfiguration'));
     const baseDir = join(__dirname, './fixtures/autoConf-no-import');
     assert(!existsSync(join(baseDir, 'src/configuration.ts')));
@@ -93,5 +93,16 @@ describe('/test/index.test.ts', () => {
     await cmd.run();
     assert(existsAndMatch(join(baseDir, 'src/configuration.ts'), /test-mode-name/));
     await remove(join(baseDir, 'src/configuration.ts'));
+  })
+
+  it('test autoconf when midway intergration', async () => {
+    const baseDir = join(__dirname, './fixtures/autoConf-midway-integration');
+    const cmd = new command({
+      cwd: baseDir,
+      baseDir,
+    });
+    await cmd.run();
+    assert(existsAndMatch(join(baseDir, 'src/apis/configuration.ts'), /test-mode-name/));
+    await remove(join(baseDir, 'src/apis/configuration.ts'));
   })
 })
