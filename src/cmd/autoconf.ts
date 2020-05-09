@@ -86,7 +86,7 @@ export class ContainerConfiguration {}`;
       code = this.getDefaultCode();
     }
     // 如果没有imports，那么就进行添加
-    if (!/@Configuration\((?:.|\s)*?imports:/.test(code)) {
+    if (!/@Configuration\([\s\S]*?imports[\s\S]*?\sclass\s/.test(code)) {
       code = this.addImports(code);
     }
     code = this.addMode(code);
