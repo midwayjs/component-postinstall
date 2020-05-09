@@ -1,4 +1,3 @@
-import * as mm from 'mm';
 import { command } from '../src/cmd/autoconf';
 import { join } from 'path';
 import { existsSync, readFileSync, remove, copyFile } from 'fs-extra';
@@ -13,32 +12,28 @@ function existsAndMatch(file: string, pattern: RegExp) {
 
 describe('/test/index.test.ts', () => {
   it('test autoconf when file not exist', async () => {
-    // mm(process.env, 'npm_rootpath', join(__dirname, './fixtures/autoPluginConfiguration'));
     const baseDir = join(__dirname, './fixtures/autoConf-no-conf');
     assert(!existsSync(join(baseDir, 'src/configuration.ts')));
     const cmd = new command({
-      cwd: baseDir,
+      modName: 'test-mode-name',
       baseDir,
     });
     await cmd.run();
     assert(existsAndMatch(join(baseDir, 'src/configuration.ts'), /test-mode-name/));
     await remove(join(baseDir, 'src/configuration.ts'));
-    mm.restore();
   })
 
   it('test autoconf when import not exist', async () => {
-    // mm(process.env, 'npm_rootpath', join(__dirname, './fixtures/autoPluginConfiguration'));
     const baseDir = join(__dirname, './fixtures/autoConf-no-import');
     assert(!existsSync(join(baseDir, 'src/configuration.ts')));
     await copyFile(join(baseDir, 'src/configuration.ts_bak'), join(baseDir, 'src/configuration.ts'));
     const cmd = new command({
-      cwd: baseDir,
+      modName: 'test-mode-name',
       baseDir,
     });
     await cmd.run();
     assert(existsAndMatch(join(baseDir, 'src/configuration.ts'), /test-mode-name/));
     await remove(join(baseDir, 'src/configuration.ts'));
-    mm.restore();
   })
 
   it('test autoconf when configuration has empty object', async () => {
@@ -46,13 +41,12 @@ describe('/test/index.test.ts', () => {
     assert(!existsSync(join(baseDir, 'src/configuration.ts')));
     await copyFile(join(baseDir, 'src/configuration.ts_bak'), join(baseDir, 'src/configuration.ts'));
     const cmd = new command({
-      cwd: baseDir,
+      modName: 'test-mode-name',
       baseDir,
     });
     await cmd.run();
     assert(existsAndMatch(join(baseDir, 'src/configuration.ts'), /test-mode-name/));
     await remove(join(baseDir, 'src/configuration.ts'));
-    mm.restore();
   })
 
   it('test autoconf when configuration has empty imports', async () => {
@@ -60,13 +54,12 @@ describe('/test/index.test.ts', () => {
     assert(!existsSync(join(baseDir, 'src/configuration.ts')));
     await copyFile(join(baseDir, 'src/configuration.ts_bak'), join(baseDir, 'src/configuration.ts'));
     const cmd = new command({
-      cwd: baseDir,
+      modName: 'test-mode-name',
       baseDir,
     });
     await cmd.run();
     assert(existsAndMatch(join(baseDir, 'src/configuration.ts'), /test-mode-name/));
     await remove(join(baseDir, 'src/configuration.ts'));
-    mm.restore();
   })
 
   it('test autoconf when configuration has imports', async () => {
@@ -74,7 +67,7 @@ describe('/test/index.test.ts', () => {
     assert(!existsSync(join(baseDir, 'src/configuration.ts')));
     await copyFile(join(baseDir, 'src/configuration.ts_bak'), join(baseDir, 'src/configuration.ts'));
     const cmd = new command({
-      cwd: baseDir,
+      modName: 'test-mode-name',
       baseDir,
     });
     await cmd.run();
@@ -87,7 +80,7 @@ describe('/test/index.test.ts', () => {
     assert(!existsSync(join(baseDir, 'src/configuration.ts')));
     await copyFile(join(baseDir, 'src/configuration.ts_bak'), join(baseDir, 'src/configuration.ts'));
     const cmd = new command({
-      cwd: baseDir,
+      modName: 'test-mode-name',
       baseDir,
     });
     await cmd.run();
@@ -98,7 +91,7 @@ describe('/test/index.test.ts', () => {
   it('test autoconf when midway intergration', async () => {
     const baseDir = join(__dirname, './fixtures/autoConf-midway-integration');
     const cmd = new command({
-      cwd: baseDir,
+      modName: 'test-mode-name',
       baseDir,
     });
     await cmd.run();

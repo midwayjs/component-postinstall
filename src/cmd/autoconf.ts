@@ -10,7 +10,8 @@ class AutoPluginConfiguration {
     options = options || {};
     this.cwd = options.cwd || process.cwd();
     this.modName = options.modName || this.getPkgJson(this.cwd).name;
-    this.baseDir = options.baseDir || process.env.npm_rootpath;
+    // https://docs.npmjs.com/cli/run-script
+    this.baseDir = options.baseDir || process.env.INIT_CWD;
   }
 
   getConfiguration() {
@@ -69,6 +70,7 @@ export class ContainerConfiguration {}`;
   }
 
   async run() {
+    if(this.cwd === this.baseDir) return;
     const conf = this.getConfiguration();
     if (!conf) {
       console.error(`[Auto Plugin Configuration] can not find source direction`);

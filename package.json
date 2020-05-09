@@ -11,8 +11,7 @@
     "@types/mocha": "^7.0.2",
     "@types/node": "^13.13.5",
     "fs-extra": "^9.0.0",
-    "midway-bin": "2",
-    "mm": "^3.2.0"
+    "midway-bin": "2"
   },
   "files": [
     "bin",
